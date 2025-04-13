@@ -1,4 +1,4 @@
-package models;
+package com.msbanking.models;
 
 public class Account {
     private int accountID;

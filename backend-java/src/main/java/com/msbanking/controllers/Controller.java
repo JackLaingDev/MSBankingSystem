@@ -1,9 +1,6 @@
-package controllers;
+package com.msbanking.controllers;
 
-import services.*;
 import java.util.Scanner;
-import services.AccountService;
-import services.CustomerService;
 
 public class Controller {
     private Scanner scanner = new Scanner(System.in);

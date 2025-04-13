@@ -1,4 +1,4 @@
-package models;
+package com.msbanking.models;
 
 public class Customer {
     private int customerID;
@@ -16,9 +16,9 @@ public class Customer {
     public void setCustomerID(int customerID){this.customerID = customerID;}
 
     public String getFirstName(){return firstName;}
-    public void setFirstName(String customerID){this.firstName = firstName;}
+    public void setFirstName(String setFirstName){this.firstName = firstName;}
 
-    public String getLastName(){return customerID;}
+    public String getLastName(){return lastName;}
     public void setLastName(String lastName){this.lastName = lastName;}
 
 }

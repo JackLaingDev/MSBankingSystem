@@ -1,7 +1,6 @@
-package services;
+package com.msbanking.services;
 
-import models.Account;
-import services.DatabaseService;
+import com.msbanking.models.Account;
 
 public class AccountService{
 

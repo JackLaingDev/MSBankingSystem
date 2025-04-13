@@ -1,4 +1,4 @@
-package services;
+package com.msbanking.services;
 
 import java.sql.*; // Import JDBC classes
 
