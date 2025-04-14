@@ -1,25 +1,25 @@
 package com.msbanking.services;
 
 import com.msbanking.models.Transaction;
+import com.msbanking.repositories.TransactionRepository;
+import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-
+@Service
 public class TransactionService {
 
     // Attributes
     private Transaction transaction;
-    private final DatabaseService db;
+    private final TransactionRepository transactionRepo;
 
     // Constructor
-    public TransactionService(Transaction transaction, DatabaseService db){
-        this.transaction = transaction;
-        this.db = db;
+    public TransactionService(TransactionRepository transactionRepo){
+        this.transactionRepo = transactionRepo;
     }
 
     // Getters and Setters
     public void setTransaction(Transaction transaction){this.transaction = transaction;}
 
     // Methods
-    public void saveTransaction() throws SQLException {db.createTransaction(transaction);}
+    public void saveTransaction(){transactionRepo.save(transaction);}
 
 }
