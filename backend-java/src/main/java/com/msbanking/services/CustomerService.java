@@ -1,26 +1,37 @@
 package com.msbanking.services;
 
+import com.msbanking.models.Account;
 import com.msbanking.models.Customer;
+import com.msbanking.repositories.AccountRepository;
 import com.msbanking.repositories.CustomerRepository;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
 
     private Customer customer;
     private final CustomerRepository customerRepo;
+    private final AccountRepository accountRepo;
 
-    public CustomerService(CustomerRepository customerRepo) {
+    public CustomerService(CustomerRepository customerRepo, AccountRepository accountRepo) {
         this.customerRepo = customerRepo;
+        this.accountRepo = accountRepo;
     }
 
     public void closeCustomer() {
         customerRepo.delete(customer);
     }
 
-    // ADD GET ACCOUNTS
+    public List<Account> getAccounts() {
+        if (customer == null) {
+            throw new IllegalStateException("No logged-in customer.");
+        }
+        return accountRepo.findByCustomer_CustomerID(customer.getCustomerID());
+    }
 
     public int login(String username, String password) {
         Customer found = customerRepo.findByUsername(username);
