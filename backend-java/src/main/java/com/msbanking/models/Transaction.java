@@ -1,14 +1,30 @@
 package com.msbanking.models;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "transactions")
 public class Transaction {
 
     // Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transactionID;
+
+    @ManyToOne
+    @JoinColumn(name = "senderID", nullable = false)
     private int senderID;
+
+    @ManyToOne
+    @JoinColumn(name = "recipientID", nullable = false)
     private int recipientID;
+
+    @Column(name = "amount")
     private BigDecimal amount;
+
+    public Transaction() {};
 
     // Constructor
     public Transaction(int transactionID, int senderID, int recipientID, BigDecimal amount){
