@@ -50,8 +50,7 @@ public class AccountService {
         if (newSenderBalance.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
             accountRepo.setAccountBalance(sender.getAccountID(), newSenderBalance);
             accountRepo.setAccountBalance(recipient.getAccountID(), newRecipientBalance);
-            transServ.setTransaction(transaction);
-            transServ.saveTransaction();
+            transServ.saveTransaction(transaction);
         } else {
             throw new SQLException("Insufficient funds or invalid amount");
         }
