@@ -1,6 +1,7 @@
 package com.msbanking.controllers;
 
 import com.msbanking.models.Account;
+import com.msbanking.models.Transaction;
 import com.msbanking.repositories.AccountRepository;
 import com.msbanking.services.AccountService;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -43,6 +45,12 @@ public class AccountRESTController {
         } catch (Exception e) {
             return "Failed to withdraw: " + e.getMessage();
         }
+    }
+
+    @GetMapping("/transactions")
+    public List<Transaction> getTransactions(@RequestParam int accountID) {
+        Account account = accountRepo.findById(accountID).orElseThrow();
+        return accountService.getTransactions(account);
     }
 }
 

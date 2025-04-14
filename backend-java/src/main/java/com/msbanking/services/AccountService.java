@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
 
 
 @Service
@@ -54,5 +55,9 @@ public class AccountService {
         } else {
             throw new SQLException("Insufficient funds or invalid amount");
         }
+    }
+
+    public List<Transaction> getTransactions(Account account) {
+        return transServ.getTransactionsForAccount(account);
     }
 }
