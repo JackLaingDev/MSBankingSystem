@@ -56,6 +56,10 @@ public class AccountService {
         }
     }
 
+    public void createAccount(Account account) {
+        accountRepo.save(account);
+    }
+
     public List<Transaction> getTransactions(Account account) {
         return transServ.getTransactionsForAccount(account);
     }

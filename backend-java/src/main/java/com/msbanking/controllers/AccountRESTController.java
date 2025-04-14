@@ -34,6 +34,16 @@ public class AccountRESTController {
         }
     }
 
+    @PostMapping("/create")
+    public String createAccount(@RequestBody Account account) {
+        try {
+            accountService.createAccount(account);
+            return "Account created";
+        } catch (Exception e) {
+            return "Error creating account: " + e.getMessage();
+        }
+    }
+
     @PostMapping("/withdraw")
     public String withdraw(@RequestParam int accountID, @RequestParam BigDecimal amount) {
         try {
