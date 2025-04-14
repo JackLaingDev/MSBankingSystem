@@ -31,13 +31,18 @@ public class CustomerRESTController {
             case -1 -> "Account not found";
             case -2 -> "Account is closed";
             case -3 -> "Incorrect password";
-            case 0 -> "Login successful";
-            default -> "Unknown error";
+            default -> "Login successful. Customer ID: " + status;
         };
     }
 
-    @GetMapping("/accounts")
-    public List<Account> getAccounts() {
-        return customerService.getAccounts();
+    @GetMapping("/{customerID}/accounts")
+    public List<Account> getAccounts(@PathVariable int customerID) {
+        return customerService.getAccounts(customerID);
+    }
+
+    @DeleteMapping("/{customerID}")
+    public String closeCustomer(@PathVariable int customerID) {
+        customerService.closeCustomer(customerID);
+        return "Customer closed";
     }
 }

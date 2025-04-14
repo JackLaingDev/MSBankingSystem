@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private Customer customer;
     private final CustomerRepository customerRepo;
     private final AccountRepository accountRepo;
 
@@ -22,15 +21,14 @@ public class CustomerService {
         this.accountRepo = accountRepo;
     }
 
-    public void closeCustomer() {
+    public void closeCustomer(int customerID) {
+        Customer customer = customerRepo.findById(customerID).orElseThrow(() ->
+                new IllegalArgumentException("Customer not found"));
         customerRepo.delete(customer);
     }
 
-    public List<Account> getAccounts() {
-        if (customer == null) {
-            throw new IllegalStateException("No logged-in customer.");
-        }
-        return accountRepo.findByCustomer_CustomerID(customer.getCustomerID());
+    public List<Account> getAccounts(int customerID) {
+        return accountRepo.findByCustomer_CustomerID(customerID);
     }
 
     public int login(String username, String password) {
@@ -44,8 +42,7 @@ public class CustomerService {
             return -3; // Wrong password
         }
 
-        this.customer = found;
-        return 0; // Success
+        return found.getCustomerID(); // Return ID on success
     }
 
     public int register(String username, String password, String firstName, String lastName) {
@@ -57,9 +54,5 @@ public class CustomerService {
         } catch (DataIntegrityViolationException e) {
             return -1; // Username exists
         }
-    }
-
-    public int getCustomerID() {
-        return this.customer.getCustomerID();
     }
 }
