@@ -12,5 +12,5 @@ public class AccountRESTController {
 
     @Autowired
     AccountService accountService;
-    
+
 }

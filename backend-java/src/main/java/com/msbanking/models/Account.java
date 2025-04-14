@@ -1,14 +1,29 @@
 package com.msbanking.models;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "accounts")
 public class Account {
 
     // Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int accountID;
+
+    @ManyToOne
+    @JoinColumn(name = "customerID", nullable = false)
     private int customerID;
+
+    @Column(name = "accountType")
     private int accountType;
+
+    @Column(name = "balance")
     private BigDecimal balance;
+
+    @Column(name = "isClosed")
     private boolean isClosed;
 
     // Constructor
