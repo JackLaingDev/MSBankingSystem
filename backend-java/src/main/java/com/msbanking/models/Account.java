@@ -26,6 +26,8 @@ public class Account {
     @Column(name = "isClosed")
     private boolean isClosed;
 
+    public Account() {};
+
     // Constructor
     public Account(int accountID, int customerID, int accountType, BigDecimal balance) {
         this.accountID = accountID;
