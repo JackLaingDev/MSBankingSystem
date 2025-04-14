@@ -24,8 +24,6 @@ hs_err_pid*
 replay_pid*
 
 .idea/*
-!.idea/codeStyles
-!.idea/runConfigurations
-!.idea/misc.xml
 
 backend-java/src/main/resources/application.properties
+backend-java/target/*
