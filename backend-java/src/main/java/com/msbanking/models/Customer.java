@@ -1,14 +1,32 @@
 package com.msbanking.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
 
     // Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerID;
+
+    @Column(name = "firstName")
     private String firstName;
+
+    @Column(name = "lastName")
     private String lastName;
+
+    @Column(name = "username", unique = true)
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "isClosed")
     private boolean isClosed;
+
+    public Customer() {} // required no arg constructor for JPA
 
     // Constructor
     public Customer(int customerID, String firstName, String lastName,String password, String username){
@@ -25,7 +43,7 @@ public class Customer {
     public void setCustomerID(int customerID){this.customerID = customerID;}
 
     public String getFirstName(){return firstName;}
-    public void setFirstName(String customerID){this.firstName = firstName;}
+    public void setFirstName(String firstName){this.firstName = firstName;}
 
     public String getLastName(){return lastName;}
     public void setLastName(String lastName){this.lastName = lastName;}

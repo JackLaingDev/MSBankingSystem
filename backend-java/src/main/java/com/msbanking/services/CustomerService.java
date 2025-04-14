@@ -1,61 +1,53 @@
 package com.msbanking.services;
 
 import com.msbanking.models.Customer;
-import com.msbanking.models.Account;
+import com.msbanking.repositories.CustomerRepository;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.List;
-
+@Service
 public class CustomerService {
 
-    // Attributes
     private Customer customer;
-    private final DatabaseService db;
+    private final CustomerRepository customerRepo;
 
-    // Constructor
-    public CustomerService(Customer customer, DatabaseService db){
-        this.customer = customer;
-        this.db = db;
+    public CustomerService(CustomerRepository customerRepo) {
+        this.customerRepo = customerRepo;
     }
 
-    // Getters and Setters
-    public List<Account> getAccounts() throws SQLException{return db.getCustAccounts(this.customer);}
-
-    //Methods
-    public void closeCustomer() throws SQLException{
-        this.db.closeCustomer(this.customer);
+    public void closeCustomer() {
+        customerRepo.delete(customer);
     }
-    public int login(String userName, String password) throws SQLException {
 
-        Customer customer = this.db.getCustomer(userName);
-        String custPassword = customer.getPassword();
+    // ADD GET ACCOUNTS
 
-        if(customer.getCustomerID() == -1){
-            return -1;
+    public int login(String username, String password) {
+        Customer found = customerRepo.findByUsername(username);
+
+        if (found == null) {
+            return -1; // No account
+        } else if (found.getIsClosed()) {
+            return -2; // Closed
+        } else if (!found.getPassword().equals(password)) {
+            return -3; // Wrong password
         }
-        else if (customer.getIsClosed()) {
-            return -2;
-        }
-        else if (!custPassword.equals(password)){
-            return -3;
-        }
-        else if (custPassword.equals(password)) {
-            this.customer = customer;
+
+        this.customer = found;
+        return 0; // Success
+    }
+
+    public int register(String username, String password, String firstName, String lastName) {
+        Customer customer = new Customer(0, firstName, lastName, password, username);
+
+        try {
+            customerRepo.save(customer);
             return 0;
-        }
-        return -1;
-    }
-    public int register(String userName, String password, String firstName, String lastName) throws SQLException{
-        Customer customer = new Customer(0, firstName, lastName, password, userName);
-
-        try{
-            db.createCustomer(customer);
-            return 0;
-        } catch (SQLIntegrityConstraintViolationException e) {
-            return -1;
+        } catch (DataIntegrityViolationException e) {
+            return -1; // Username exists
         }
     }
 
-    public int getCustomerID(){return this.customer.getCustomerID();}
+    public int getCustomerID() {
+        return this.customer.getCustomerID();
+    }
 }
