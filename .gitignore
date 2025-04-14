@@ -27,3 +27,5 @@ replay_pid*
 !.idea/codeStyles
 !.idea/runConfigurations
 !.idea/misc.xml
+
+backend-java/src/main/resources/application.properties

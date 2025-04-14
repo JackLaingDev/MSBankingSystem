@@ -1,13 +1,18 @@
 package com.msbanking.models;
 
+import java.math.BigDecimal;
+
 public class Account {
+
+    // Attributes
     private int accountID;
     private int customerID;
     private int accountType;
-    private int balance;
+    private BigDecimal balance;
     private boolean isClosed;
 
-    public Account(int accountID, int customerID, int accountType, int balance) {
+    // Constructor
+    public Account(int accountID, int customerID, int accountType, BigDecimal balance) {
         this.accountID = accountID;
         this.customerID = customerID;
         this.accountType = accountType;
@@ -25,10 +30,10 @@ public class Account {
     public int getAccountType(){return accountType;}
     public void setAccountType(int accountType){this.accountType = accountType;}
 
-    public int getBalance(){return balance;}
-    public void setBalance(int balance){this.balance = balance;}
+    public BigDecimal getBalance(){return balance;}
+    public void setBalance(BigDecimal balance){this.balance = balance;}
 
-    public boolean isClosed(){return isClosed;}
-    public void setIsClosed(boolean isClosed){this.isClosed = isClosed;}
+    public boolean getIsClosed() {return isClosed;}
+    public void setClosed(boolean closed) {isClosed = closed;}
 
 }
