@@ -38,6 +38,7 @@ public class Customer {
         this.isClosed = false;
     }
 
+
     // Getters and Setters
     public int getCustomerID(){return customerID;}
     public void setCustomerID(int customerID){this.customerID = customerID;}
