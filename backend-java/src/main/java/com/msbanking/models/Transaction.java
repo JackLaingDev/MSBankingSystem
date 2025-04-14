@@ -8,43 +8,60 @@ import java.math.BigDecimal;
 @Table(name = "transactions")
 public class Transaction {
 
-    // Attributes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int transactionID;
 
     @ManyToOne
     @JoinColumn(name = "senderID", nullable = false)
-    private int senderID;
+    private Account sender;
 
     @ManyToOne
     @JoinColumn(name = "recipientID", nullable = false)
-    private int recipientID;
+    private Account recipient;
 
-    @Column(name = "amount")
+    @Column(nullable = false)
     private BigDecimal amount;
 
-    public Transaction() {};
+    public Transaction() {}
 
-    // Constructor
-    public Transaction(int transactionID, int senderID, int recipientID, BigDecimal amount){
-        this.transactionID = transactionID;
-        this.senderID = senderID;
-        this.recipientID = recipientID;
+    public Transaction(Account sender, Account recipient, BigDecimal amount) {
+        this.sender = sender;
+        this.recipient = recipient;
         this.amount = amount;
     }
 
     // Getters and Setters
-    public int getTransactionID(){return transactionID;}
-    public void setTransactionID(int transactionID){this.transactionID = transactionID;}
 
-    public int getSenderID(){return senderID;}
-    public void setSenderID(int senderID){this.senderID = senderID;}
+    public int getTransactionID() {
+        return transactionID;
+    }
 
-    public int getRecipientID(){return recipientID;}
-    public void setRecipientID(int recipientID){this.recipientID = recipientID;}
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
 
-    public BigDecimal getAmount(){return amount;}
-    public void setAmount(BigDecimal amount){this.amount = amount;}
+    public Account getSender() {
+        return sender;
+    }
 
+    public void setSender(Account sender) {
+        this.sender = sender;
+    }
+
+    public Account getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(Account recipient) {
+        this.recipient = recipient;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 }

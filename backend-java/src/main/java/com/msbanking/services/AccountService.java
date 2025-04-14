@@ -4,73 +4,55 @@ import com.msbanking.models.Transaction;
 
 import com.msbanking.models.Account;
 import com.msbanking.repositories.AccountRepository;
-import com.msbanking.repositories.CustomerRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.List;
+
 
 @Service
-public class AccountService{
+public class AccountService {
 
-    // Attributes
-    private Account account;
     private final AccountRepository accountRepo;
     private final TransactionService transServ;
 
-    // Constructor
-    public AccountService(AccountRepository accountRepo,TransactionService transServ) {
+    public AccountService(AccountRepository accountRepo, TransactionService transServ) {
         this.accountRepo = accountRepo;
         this.transServ = transServ;
     }
 
-    // Getters and Setters
-    public Account getAccount(){return account;}
-    // ADD GET TRANSACTIONS
-    public int getAccountID(){return account.getAccountID();}
-    public BigDecimal getAccBalance(){return account.getBalance();}
-    public void setAccount(Account account){this.account = account;}
-
-    // Methods
-    public void createAccount() {
-        accountRepo.save(account);
+    public void deposit(Account account, BigDecimal amount) throws SQLException {
+        BigDecimal newBalance = account.getBalance().add(amount);
+        if (newBalance.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
+            accountRepo.setAccountBalance(account.getAccountID(), newBalance);
+        }
     }
-    public void closeAccount(){
-        accountRepo.delete(account);
+
+    public void withdraw(Account account, BigDecimal amount) throws SQLException {
+        BigDecimal newBalance = account.getBalance().subtract(amount);
+        if (newBalance.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
+            accountRepo.setAccountBalance(account.getAccountID(), newBalance);
+        }
     }
-    public void makeTransaction(Transaction transaction){
 
-        transServ.setTransaction(transaction);
-
-        Account recipientAccount = accountRepo.findById(transaction.getRecipientID()).orElse(null);;
+    @Transactional
+    public void makeTransaction(Transaction transaction) throws SQLException {
+        Account sender = transaction.getSender();
+        Account recipient = accountRepo.findById(transaction.getRecipient().getAccountID()).orElse(null);
+        if (recipient == null) throw new SQLException("Recipient account not found");
 
         BigDecimal amount = transaction.getAmount();
+        BigDecimal newSenderBalance = sender.getBalance().subtract(amount);
+        BigDecimal newRecipientBalance = recipient.getBalance().add(amount);
 
-        BigDecimal newAmountSender = this.account.getBalance().subtract(amount);
-        BigDecimal newAmountRecipient = recipientAccount.getBalance().add(amount);
-
-        // Check if sender account has enough money, and that the amount sent is valid
-        if(newAmountSender.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
-            accountRepo.setAccountBalance(account.getAccountID(), newAmountSender);
-            accountRepo.setAccountBalance(recipientAccount.getAccountID(), newAmountRecipient);
-            account.setBalance(newAmountSender);
+        if (newSenderBalance.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
+            accountRepo.setAccountBalance(sender.getAccountID(), newSenderBalance);
+            accountRepo.setAccountBalance(recipient.getAccountID(), newRecipientBalance);
+            transServ.setTransaction(transaction);
             transServ.saveTransaction();
+        } else {
+            throw new SQLException("Insufficient funds or invalid amount");
         }
     }
-    public void deposit(BigDecimal amount) throws SQLException{
-        BigDecimal newBalance = account.getBalance().add(amount);
-        if(newBalance.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
-            accountRepo.setAccountBalance(account.getAccountID(), newBalance);
-            account.setBalance(newBalance);
-        }
-    }
-    public void withdraw(BigDecimal amount) throws SQLException{
-        BigDecimal newBalance = account.getBalance().subtract(amount);
-        if(newBalance.compareTo(BigDecimal.ZERO) >= 0 && amount.compareTo(BigDecimal.ZERO) >= 0) {
-            accountRepo.setAccountBalance(account.getAccountID(), newBalance);
-            account.setBalance(newBalance);
-        }
-    }
-
 }
