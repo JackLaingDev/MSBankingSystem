@@ -56,6 +56,7 @@ public class AccountService {
         }
     }
 
+    @Transactional
     public void createAccount(Account account) {
         accountRepo.save(account);
     }

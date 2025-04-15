@@ -5,6 +5,7 @@ import com.msbanking.models.Customer;
 import com.msbanking.repositories.AccountRepository;
 import com.msbanking.repositories.CustomerRepository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class CustomerService {
         this.accountRepo = accountRepo;
     }
 
+    @Transactional
     public void closeCustomer(int customerID) {
         Customer customer = customerRepo.findById(customerID).orElseThrow(() ->
                 new IllegalArgumentException("Customer not found"));
@@ -45,6 +47,7 @@ public class CustomerService {
         return found.getCustomerID(); // Return ID on success
     }
 
+    @Transactional
     public int register(String username, String password, String firstName, String lastName) {
         Customer customer = new Customer(0, firstName, lastName, password, username);
 
