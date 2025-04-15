@@ -3,6 +3,7 @@ package com.msbanking.models;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -16,6 +17,12 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "customerID", nullable = false)
     private Customer customer;
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> sentTransactions;
+
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> receivedTransactions;
 
     @Column(name = "accountType")
     private int accountType;

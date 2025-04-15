@@ -2,6 +2,8 @@ package com.msbanking.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "customers")
 public class Customer {
@@ -25,6 +27,9 @@ public class Customer {
 
     @Column(name = "isClosed")
     private boolean isClosed;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Account> accounts;
 
     public Customer() {} // required no arg constructor for JPA
 
