@@ -61,6 +61,11 @@ public class AccountService {
         accountRepo.save(account);
     }
 
+    @Transactional
+    public void closeAccount(Account account){
+        accountRepo.delete(account);
+    }
+
     public List<Transaction> getTransactions(Account account) {
         return transServ.getTransactionsForAccount(account);
     }
