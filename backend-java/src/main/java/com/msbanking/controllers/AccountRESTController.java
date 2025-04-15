@@ -62,5 +62,12 @@ public class AccountRESTController {
         Account account = accountRepo.findById(accountID).orElseThrow();
         return accountService.getTransactions(account);
     }
+
+    @DeleteMapping("/{accountID}")
+    public String closeAccount(@RequestParam int accountID){
+        Account account = accountRepo.findById(accountID).orElseThrow();
+        accountService.closeAccount(account);
+        return "Account Closed";
+    }
 }
 
