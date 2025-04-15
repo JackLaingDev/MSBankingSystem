@@ -26,6 +26,13 @@ public class CustomerService {
     public void closeCustomer(Customer customer) {
         customer.setIsClosed(true);
         customerRepo.save(customer);
+
+        // close cust accounts
+        List<Account> accounts = getAccounts(customer.getCustomerID());
+        for(Account account : accounts){
+            account.setClosed(true);
+            accountRepo.save(account);
+        }
     }
 
     public List<Account> getAccounts(int customerID) {
