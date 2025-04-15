@@ -2,7 +2,10 @@ package com.msbanking.controllers;
 
 import com.msbanking.models.Account;
 import com.msbanking.models.Customer;
+import com.msbanking.repositories.CustomerRepository;
 import com.msbanking.services.CustomerService;
+import com.msbanking.repositories.AccountRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +17,9 @@ public class CustomerRESTController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private CustomerRepository customerRepo;
 
     @PostMapping("/register")
     public String register(@RequestBody Customer customer) {
@@ -42,7 +48,8 @@ public class CustomerRESTController {
 
     @DeleteMapping("/{customerID}")
     public String closeCustomer(@PathVariable int customerID) {
-        customerService.closeCustomer(customerID);
+        Customer customer = customerRepo.findById(customerID).orElseThrow();
+        customerService.closeCustomer(customer);
         return "Customer closed";
     }
 }

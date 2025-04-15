@@ -23,10 +23,9 @@ public class CustomerService {
     }
 
     @Transactional
-    public void closeCustomer(int customerID) {
-        Customer customer = customerRepo.findById(customerID).orElseThrow(() ->
-                new IllegalArgumentException("Customer not found"));
-        customerRepo.delete(customer);
+    public void closeCustomer(Customer customer) {
+        customer.setIsClosed(true);
+        customerRepo.save(customer);
     }
 
     public List<Account> getAccounts(int customerID) {
