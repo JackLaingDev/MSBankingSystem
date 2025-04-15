@@ -64,7 +64,7 @@ public class AccountRESTController {
     }
 
     @DeleteMapping("/{accountID}")
-    public String closeAccount(@RequestParam int accountID){
+    public String closeAccount(@PathVariable int accountID){
         Account account = accountRepo.findById(accountID).orElseThrow();
         accountService.closeAccount(account);
         return "Account Closed";
