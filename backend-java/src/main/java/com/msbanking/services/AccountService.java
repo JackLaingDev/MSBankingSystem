@@ -63,7 +63,8 @@ public class AccountService {
 
     @Transactional
     public void closeAccount(Account account){
-        accountRepo.delete(account);
+        account.setClosed(true);
+        accountRepo.save(account);
     }
 
     public List<Transaction> getTransactions(Account account) {
