@@ -7,7 +7,7 @@ function Navbar() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          MSBank
+          JLBank
         </Typography>
         <Button color="inherit" component={Link} to="/home">Home</Button>
         <Button color="inherit" component={Link} to="/accounts">Accounts</Button>
