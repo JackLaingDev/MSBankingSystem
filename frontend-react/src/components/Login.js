@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import axios from 'axios';
 
 function Login() {
@@ -19,11 +20,14 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="username" placeholder="Username" onChange={handleChange} />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} />
-      <button type="submit">Login</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <Box display="flex" flexDirection="column" gap={2} maxWidth={300} mx="auto" mt={5}>
+          <Typography variant="h5" align="center">Login</Typography>
+          <TextField name="username" label="Username" onChange={handleChange} />
+          <TextField name="password" label="Password" type="password" onChange={handleChange} />
+          <Button type="submit" variant="contained">Login</Button>
+        </Box>
+      </form>
   );
 }
 
