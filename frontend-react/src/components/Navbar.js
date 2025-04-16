@@ -13,7 +13,9 @@ function Navbar({ isLoggedIn }) {
         {isLoggedIn && ( // Only show if logged in
           <Button color="inherit" component={Link} to="/accounts">Accounts</Button>
         )}
-        <Button color="inherit" component={Link} to="/login">Login</Button>
+        {!isLoggedIn &&(
+          <Button color="inherit" component={Link} to="/login">Login</Button>
+        )}
       </Toolbar>
     </AppBar>
   );
