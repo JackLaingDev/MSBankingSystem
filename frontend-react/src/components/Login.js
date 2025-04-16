@@ -3,7 +3,7 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-function Login({setIsLoggedIn}) {
+function Login({setIsLoggedIn, setCustomerID }) {
   const [form, setForm] = useState({ username: '', password: '' });
 
   const handleChange = (e) => {
@@ -14,8 +14,14 @@ function Login({setIsLoggedIn}) {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:8080/api/customers/login', form);
-      alert(res.data);
-      setIsLoggedIn(true);
+      if (res.data === "Login successful") {
+        const customerRes = await axios.get(`http://localhost:8080/api/customers/username/${form.username}`);
+        setCustomerID(customerRes.data.customerID);
+        setIsLoggedIn(true);
+        alert("Logged in!");
+      } else {
+        alert(res.data);
+      }
     } catch (err) {
       alert('Login failed: ' + err.response?.data?.message || err.message);
     }
