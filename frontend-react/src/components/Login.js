@@ -15,6 +15,7 @@ function Login() {
     try {
       const res = await axios.post('http://localhost:8080/api/customers/login', form);
       alert(res.data);
+      setIsLoggedIn(true);
     } catch (err) {
       alert('Login failed: ' + err.response?.data?.message || err.message);
     }
