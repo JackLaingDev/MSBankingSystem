@@ -8,7 +8,7 @@ function Home() {
       <Navbar />
       <Container>
         <Typography variant="h4" gutterBottom>
-          Welcome to MSBank!
+          Welcome to Jack Laings Banking App!
         </Typography>
         <Typography>
           This is your banking dashboard.
