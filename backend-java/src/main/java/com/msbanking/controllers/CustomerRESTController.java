@@ -41,6 +41,11 @@ public class CustomerRESTController {
         };
     }
 
+    @GetMapping("/username/{username}")
+    public Customer getByUsername(@PathVariable String username) {
+        return customerRepo.findByUsername(username);
+    }
+
     @GetMapping("/{customerID}/accounts")
     public List<Account> getAccounts(@PathVariable int customerID) {
         return customerService.getAccounts(customerID);
