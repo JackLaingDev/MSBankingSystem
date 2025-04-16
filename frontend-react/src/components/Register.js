@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import axios from 'axios';
 
 function Register() {
@@ -25,11 +26,14 @@ function Register() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="firstName" placeholder="First Name" onChange={handleChange} />
-      <input name="lastName" placeholder="Last Name" onChange={handleChange} />
-      <input name="username" placeholder="Username" onChange={handleChange} />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} />
-      <button type="submit">Register</button>
+        <Box display="flex" flexDirection="column" gap={2} maxWidth={300} mx="auto" mt={5}>
+          <Typography variant="h5" align="center">Register</Typography>
+          <TextField name="username" label="Username" onChange={handleChange} />
+          <TextField name="password" label="Password" type="password" onChange={handleChange} />
+          <TextField name="firstName" label="First Name" onchange={handleChange} />
+          <TextField name="lastName" label="Last Name" onchange={handleChange} />
+          <Button type="submit" variant="contained">Register</Button>
+        </Box>
     </form>
   );
 }

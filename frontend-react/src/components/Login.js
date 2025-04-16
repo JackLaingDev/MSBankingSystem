@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
@@ -20,6 +21,7 @@ function Login() {
   };
 
   return (
+      <>
       <form onSubmit={handleSubmit}>
         <Box display="flex" flexDirection="column" gap={2} maxWidth={300} mx="auto" mt={5}>
           <Typography variant="h5" align="center">Login</Typography>
@@ -28,6 +30,11 @@ function Login() {
           <Button type="submit" variant="contained">Login</Button>
         </Box>
       </form>
+      <Box display="flex" flexDirection="column" gap={2} maxWidth={300} mx="auto" mt={5}>
+        <Typography variant="h5" align="center">Don't have an account? Register below!</Typography>
+        <Button color="inherit" component={Link} to="/register">Register</Button>
+      </Box>
+      </>
   );
 }
 
