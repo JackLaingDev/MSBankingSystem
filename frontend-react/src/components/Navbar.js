@@ -9,7 +9,7 @@ function Navbar({ isLoggedIn }) {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           JLBank
         </Typography>
-        <Button color="inherit" component={Link} to="/home">Home</Button>
+        <Button color="inherit" component={Link} to="/">Home</Button>
         {isLoggedIn && ( // Only show if logged in
           <Button color="inherit" component={Link} to="/accounts">Accounts</Button>
         )}

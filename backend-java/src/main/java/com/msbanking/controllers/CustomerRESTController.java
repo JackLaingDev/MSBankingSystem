@@ -37,7 +37,7 @@ public class CustomerRESTController {
             case -1 -> "Account not found";
             case -2 -> "Account is closed";
             case -3 -> "Incorrect password";
-            default -> "Login successful. Customer ID: " + status;
+            default -> "Login successful";
         };
     }
 

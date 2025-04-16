@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
-import Home from './pages/Home';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Accounts from './pages/Account';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
