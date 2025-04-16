@@ -3,7 +3,7 @@ import { TextField, Button, Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-function Login() {
+function Login({setIsLoggedIn}) {
   const [form, setForm] = useState({ username: '', password: '' });
 
   const handleChange = (e) => {

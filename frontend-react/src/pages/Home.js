@@ -5,7 +5,6 @@ import { Container, Typography } from '@mui/material';
 function Home() {
   return (
     <>
-      <Navbar />
       <Container>
         <Typography variant="h4" gutterBottom>
           Welcome to Jack Laings Banking App!
