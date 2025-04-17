@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Accounts from './pages/Account';
+import Transfer from './pages/Transfer';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,6 +23,7 @@ function App() {
         <Route path="/accounts" element={
               <Accounts isLoggedIn={isLoggedIn} customerID={customerID} />
             } />
+        <Route path="/transfer" element={<Transfer customerID={customerID} />} />
       </Routes>
     </Router>
   );
