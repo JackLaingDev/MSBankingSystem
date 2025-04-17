@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, Button, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function Accounts({ isLoggedIn, customerID }) {
   const [accounts, setAccounts] = useState([]);
@@ -37,8 +38,8 @@ function Accounts({ isLoggedIn, customerID }) {
           </Box>
         ))}
         <Button variant="contained" onClick={openAccount}>Open New Account</Button>
+        <Button variant="contained" color="inherit" component={Link} to="/transfer">Transfer</Button>
       </Container>
-      <Button color="inherit" component={Link} to="/transfer">Transfer</Button>
     </>
   );
 }
