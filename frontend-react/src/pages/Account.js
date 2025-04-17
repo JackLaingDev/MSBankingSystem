@@ -38,6 +38,7 @@ function Accounts({ isLoggedIn, customerID }) {
         ))}
         <Button variant="contained" onClick={openAccount}>Open New Account</Button>
       </Container>
+      <Button color="inherit" component={Link} to="/transfer">Transfer</Button>
     </>
   );
 }
