@@ -18,6 +18,13 @@ function Transfer({ customerID }) {
   const [amount, setAmount] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if(customerID)
+    axios.get(`http://localhost:8080/api/customers/${customerID}/accounts`)
+        .then(setAccounts(res.data))
+        .catch(err => console.error(err))
+  }, [customerID])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const transaction = {
