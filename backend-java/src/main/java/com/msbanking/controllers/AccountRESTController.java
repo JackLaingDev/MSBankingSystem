@@ -63,6 +63,11 @@ public class AccountRESTController {
         return accountService.getTransactions(account);
     }
 
+    @GetMapping("/{accountID}")
+    public Account getAccountById(@PathVariable int accountID) {
+        return accountRepo.findById(accountID).orElse(null);
+    }
+
     @DeleteMapping("/{accountID}")
     public String closeAccount(@PathVariable int accountID){
         Account account = accountRepo.findById(accountID).orElseThrow();
