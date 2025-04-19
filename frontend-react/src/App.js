@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Accounts from './pages/Account';
 import Transfer from './pages/Transfer';
+import AccountDetails from './pages/Account_Individual';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,6 +25,7 @@ function App() {
               <Accounts isLoggedIn={isLoggedIn} customerID={customerID} />
             } />
         <Route path="/transfer" element={<Transfer customerID={customerID} />} />
+        <Route path="/accounts/:accountID" element={<AccountDetails />} />
       </Routes>
     </Router>
   );
