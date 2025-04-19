@@ -21,7 +21,7 @@ function Transfer({ customerID }) {
   useEffect(() => {
     if(customerID)
     axios.get(`http://localhost:8080/api/customers/${customerID}/accounts`)
-        .then(setAccounts(res.data))
+        .then(res => setAccounts(res.data))
         .catch(err => console.error(err))
   }, [customerID])
 
