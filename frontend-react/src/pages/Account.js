@@ -42,7 +42,7 @@ function Account({ isLoggedIn, customerID }) {
       <Typography variant="h5" gutterBottom>My Accounts</Typography>
 
       <Grid container spacing={3}>
-        {accounts.map((acc) => (
+        {accounts.filter(acc => !acc.isClosed).map((acc) => (
           <Grid item xs={12} sm={6} md={4} key={acc.accountID}>
             <Paper sx={{ p: 3 }}>
               <Typography>Account ID: {acc.accountID}</Typography>
