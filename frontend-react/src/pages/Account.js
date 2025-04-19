@@ -1,14 +1,16 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, Button, Box, Paper, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Accounts({ isLoggedIn, customerID }) {
+function Account({ isLoggedIn, customerID }) {
   const [accounts, setAccounts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn && customerID) {
-      axios.get(`http://localhost:8080/api/customers/${customerID}/accounts`)
+      axios.get(`https://jlbanking.ew.r.appspot.com/api/customers/${customerID}/accounts`)
         .then(res => setAccounts(res.data))
         .catch(err => console.error(err));
     }
@@ -20,9 +22,19 @@ function Accounts({ isLoggedIn, customerID }) {
       accountType: 0,
       balance: 0
     };
-    await axios.post('http://localhost:8080/api/accounts/create', newAcc);
-    const res = await axios.get(`http://localhost:8080/api/customers/${customerID}/accounts`);
+    await axios.post('https://jlbanking.ew.r.appspot.com/api/accounts/create', newAcc);
+    const res = await axios.get(`https://jlbanking.ew.r.appspot.com/api/customers/${customerID}/accounts`);
     setAccounts(res.data);
+  };
+
+  const closeCustomer = async () => {
+    try {
+      await axios.delete(`https://jlbanking.ew.r.appspot.com/api/customers/${customerID}`);
+      alert('Customer account closed');
+      navigate('/');
+    } catch (err) {
+      alert('Failed to close customer: ' + err.response?.data?.message || err.message);
+    }
   };
 
   return (
@@ -52,9 +64,10 @@ function Accounts({ isLoggedIn, customerID }) {
       <Box mt={4} display="flex" gap={2}>
         <Button variant="contained" onClick={openAccount}>Open New Account</Button>
         <Button variant="contained" color="inherit" component={Link} to="/transfer">Transfer</Button>
+        <Button variant="contained" color="error" onClick={closeCustomer}>Close Customer Account</Button>
       </Box>
     </Container>
   );
 }
 
-export default Accounts;
+export default Account;

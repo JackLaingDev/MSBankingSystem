@@ -14,11 +14,11 @@ function Login({setIsLoggedIn, setCustomerID }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8080/api/customers/login', form);
+      const res = await axios.post('https://jlbanking.ew.r.appspot.com/api/customers/login', form);
       console.log("Login response:", res.data);
       if (res.data === "Login successful") {
 
-        const customerRes = await axios.get(`http://localhost:8080/api/customers/username/${form.username}`);
+        const customerRes = await axios.get(`https://jlbanking.ew.r.appspot.com/api/customers/username/${form.username}`);
         setCustomerID(customerRes.data.customerID);
         setIsLoggedIn(true);
         alert("Logged in!");

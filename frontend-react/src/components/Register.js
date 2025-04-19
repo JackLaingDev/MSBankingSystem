@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Register() {
@@ -10,6 +11,8 @@ function Register() {
     lastName: ''
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -17,8 +20,9 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:8080/api/customers/register', form);
+      const res = await axios.post('https://jlbanking.ew.r.appspot.com/api/customers/register', form);
       alert(res.data);
+      navigate('/login');
     } catch (err) {
       alert('Error: ' + err.response?.data?.message || err.message);
     }

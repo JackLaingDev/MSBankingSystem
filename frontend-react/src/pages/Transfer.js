@@ -20,7 +20,7 @@ function Transfer({ customerID }) {
 
   useEffect(() => {
     if(customerID)
-    axios.get(`http://localhost:8080/api/customers/${customerID}/accounts`)
+    axios.get(`https://jlbanking.ew.r.appspot.com/api/customers/${customerID}/accounts`)
         .then(res => setAccounts(res.data))
         .catch(err => console.error(err))
   }, [customerID])
@@ -34,7 +34,7 @@ function Transfer({ customerID }) {
     };
 
     try {
-      await axios.post('http://localhost:8080/api/transactions/send', transaction);
+      await axios.post('https://jlbanking.ew.r.appspot.com/api/transactions/send', transaction);
       alert('Transfer successful!');
       navigate('/accounts');
     } catch (err) {

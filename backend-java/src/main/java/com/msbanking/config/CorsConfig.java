@@ -11,10 +11,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // apply to all routes
-                        .allowedOrigins("http://localhost:3000") // your React frontend origin
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*");
+                registry.addMapping("/**")
+                        .allowedOrigins("https://storage.googleapis.com")
+                        .allowedMethods("*")
+                        .allowedHeaders("*")
+                        .allowCredentials(false);
             }
         };
     }
