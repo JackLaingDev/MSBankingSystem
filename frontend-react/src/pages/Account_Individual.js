@@ -19,8 +19,13 @@ function Account_Individual() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchAccount();
-    fetchTransactions();
+    axios.get(`https://jlbanking.ew.r.appspot.com/api/accounts/${accountID}`)
+      .then(res => setAccount(res.data))
+      .catch(err => console.error(err));
+  
+    axios.get(`https://jlbanking.ew.r.appspot.com/api/transactions/history/${accountID}`)
+      .then(res => setTransactions(res.data))
+      .catch(err => console.error(err));
   }, [accountID]);
 
   const fetchAccount = () => {
