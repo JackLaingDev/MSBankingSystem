@@ -2,7 +2,7 @@
 
 A full-stack, cloud-hosted banking system built with **Java Spring Boot (backend)** and **React + Material UI (frontend)**. The system supports account creation, customer registration/login, deposits, withdrawals, transfers, and account closure.
 
-## 🌐 Live Demo
+## 🌐 Live Demo - NO LONGER AVAILABLE DUE TO HIGH HOSTING COSTS
 
 **Frontend:**
 
